@@ -1,12 +1,16 @@
 from pico2d import *
+import random
 
 TUK_WIDTH, TUK_HEIGHT = 1280, 1024
 
 
 def load_resources():
     global TUK_ground, character
+    global arrow
     TUK_ground = load_image('TUK_GROUND.png')
     character = load_image('animation_sheet.png')
+    arrow = load_image('hand_arrow.png')
+
 
 
 def handle_events():
@@ -22,14 +26,18 @@ def handle_events():
 
 def reset_world():
     global running, x, y, frame
+    global hx, hy
     running = True
     x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
     frame = 0
+
+    hx, hy = TUK_WIDTH - 100, TUK_HEIGHT - 100
 
 
 def render_world():
     clear_canvas()
     TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+    arrow.draw(hx, hy)
     character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
     update_canvas()
 
