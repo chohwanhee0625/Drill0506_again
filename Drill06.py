@@ -32,12 +32,16 @@ def reset_world():
     global cx, cy, mx, my
     global action
     global frame
+    global points
 
     running = True
     cx, cy = TUK_WIDTH // 2, TUK_HEIGHT // 2
     frame = 0
     action = 3
     mx, my = cx, cy
+
+    points = [(100, 200), (1200, 800), (500, 100)]
+
     # set_new_target_arrow()
 
 
@@ -45,6 +49,7 @@ def set_new_target_arrow():
     global sx, sy, hx, hy
     global action
     global frame, t
+
     sx, sy = cx, cy  # p1 : 시작점
     # hx, hy = 100, 100
     hx, hy = random.randint(0, TUK_WIDTH - 1), random.randint(0, TUK_HEIGHT - 1)  # p2 : 끝점
@@ -57,6 +62,8 @@ def render_world():
     clear_canvas()
     TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
     arrow.draw(mx, my)
+    for p in points:
+        arrow.draw(p[0], p[1])
     character.clip_draw(frame * 100, 100 * action, 100, 100, cx, cy)
     update_canvas()
 
