@@ -12,7 +12,6 @@ def load_resources():
     arrow = load_image('hand_arrow.png')
 
 
-
 def handle_events():
     global running
     events = get_events()
@@ -33,10 +32,15 @@ def reset_world():
     cx, cy = TUK_WIDTH // 2, TUK_HEIGHT // 2
     frame = 0
     action = 3
-    
-    sx, sy = cx, cy     # p1 : 시작점
-    #hx, hy = 100, 100
-    hx, hy = random.randint(0, TUK_WIDTH-1), random.randint(0, TUK_HEIGHT-1)    # p2 : 끝점
+
+    set_new_target_arrow()
+
+
+def set_new_target_arrow():
+    global sx, sy, hx, hy, t
+    sx, sy = cx, cy  # p1 : 시작점
+    # hx, hy = 100, 100
+    hx, hy = random.randint(0, TUK_WIDTH - 1), random.randint(0, TUK_HEIGHT - 1)  # p2 : 끝점
     t = 0.0
 
 
@@ -58,9 +62,12 @@ def update_world():
     action = 1 if cx < hx else 0
 
     if t <= 1.0:
-        cx = (1-t)*sx + t*hx        # 시작점과 끝점을 1-t:t 의 비율로 섞은 위치
-        cy = (1-t)*sy + t*hy
-        t += 0.001
+        cx = (1 - t) * sx + t * hx  # 시작점과 끝점을 1-t:t 의 비율로 섞은 위치
+        cy = (1 - t) * sy + t * hy
+        t += 0.002
+    else:
+        cx, cy = hx, hy             # 캐릭터 위치를 목적지 위치와 정확히 일치시킴
+        set_new_target_arrow()
 
 
 open_canvas(TUK_WIDTH, TUK_HEIGHT)
