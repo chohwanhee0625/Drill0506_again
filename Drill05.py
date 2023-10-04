@@ -25,23 +25,25 @@ def handle_events():
 
 def reset_world():
     global running
-    global cx, cy, hx, hy, sx, sy
-    global frame, t
+    global cx, cy
     global action
     running = True
     cx, cy = TUK_WIDTH // 2, TUK_HEIGHT // 2
-    frame = 0
     action = 3
 
     set_new_target_arrow()
 
 
 def set_new_target_arrow():
-    global sx, sy, hx, hy, t
+    global sx, sy, hx, hy
+    global action
+    global frame, t
     sx, sy = cx, cy  # p1 : 시작점
     # hx, hy = 100, 100
     hx, hy = random.randint(0, TUK_WIDTH - 1), random.randint(0, TUK_HEIGHT - 1)  # p2 : 끝점
     t = 0.0
+    action = 1 if sx < hx else 0
+    frame = 0
 
 
 def render_world():
@@ -55,11 +57,8 @@ def render_world():
 def update_world():
     global frame, t
     global cx, cy
-    global action
 
     frame = (frame + 1) % 8
-
-    action = 1 if cx < hx else 0
 
     if t <= 1.0:
         cx = (1 - t) * sx + t * hx  # 시작점과 끝점을 1-t:t 의 비율로 섞은 위치
