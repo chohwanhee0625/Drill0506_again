@@ -52,10 +52,10 @@ def set_new_target_arrow():
     global t
     global target_exists
     
-    if points:                  # points 리스트 안에 남아있는 점이 있으면
-        sx, sy = cx, cy         # p1 : 시작점
+    if points:                              # points 리스트 안에 남아있는 점이 있으면
+        sx, sy = cx, cy                     # p1 : 시작점
         # hx, hy = 100, 100
-        hx, hy = points[0]      # p2 : 끝점
+        hx, hy = points[0]                  # p2 : 끝점
         t = 0.0
         action = 1 if sx < hx else 0
         target_exists = True
